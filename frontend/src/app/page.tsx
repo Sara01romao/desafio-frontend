@@ -8,6 +8,7 @@ import { MdOutlineModeEdit } from "react-icons/md";
 import { FiTrash } from "react-icons/fi";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
+import { Tooltip } from "./_components/tooltip";
 
 interface walletTypes {
   id: string;
@@ -51,9 +52,9 @@ export default function Home() {
 
     for (let i = 1; i <= totalPages; i++) {
       buttonsPage.push(
-        <button 
-          key={i} 
-          onClick={() => { setPage(i) }} 
+        <button
+          key={i}
+          onClick={() => { setPage(i) }}
           className={` ${page === i ? "bg-[#007BFF] hover:bg-[#0C9BF2] border-[#D8D8D8] text-white" : "hover:bg-[#F5F6F8]"} transition duration-700 cursor-pointer border border-[#D8D8D8] text-sm p-1 px-2 rounded text-[#3A3A3A]`}
         >
           {i}
@@ -121,12 +122,20 @@ export default function Home() {
                     <td className="p-2">{wallet.email}</td>
                     <td className="p-2">{wallet.valor_carteira}</td>
                     <td className="flex gap-2 p-2 justify-end">
-                      <button className="p-1 relative cursor-pointer group hover:bg-[#F5F6F8] transition duration-700 ease-in-out rounded-full p-2">
-                        <MdOutlineModeEdit size={18} className='text-[#767676]' />
-                      </button>
+
+                      <div className="relative flex flex-col group">
+                        <button className="p-1 relative cursor-pointer group hover:bg-[#F5F6F8] transition duration-700 ease-in-out rounded-full p-2">
+                          <MdOutlineModeEdit size={18} className='text-[#767676]' />
+                        </button>
+                        <Tooltip>Editar</Tooltip>
+                      </div>
+                     
+                     <div className="relative flex flex-col group">
                       <button className="p-1 cursor-pointer group hover:bg-[#F5F6F8] transition duration-700 ease-in-out rounded-full p-2">
                         <FiTrash size={18} className='text-[#767676]' />
+                        <Tooltip>Excluir</Tooltip>
                       </button>
+                     </div>
                     </td>
                   </tr>
                 ))
