@@ -11,6 +11,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import { Tooltip } from "./_components/tooltip";
 import { EditModal } from "./_components/modalEdit";
+import { DeleteModal } from "./_components/modalDelete";
 
 export interface walletTypes {
   id: string;
@@ -33,10 +34,12 @@ interface dataType {
 export default function Home() {
   const [activeModal, setActiveModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [dataWallet, setDataWallet] = useState<dataType>();
   const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPage] = useState<number>(1);
   const [wallet, setWallet] = useState<walletTypes>();
+
 
   useEffect(() => {
     async function dataWallet() {
@@ -72,6 +75,11 @@ export default function Home() {
   function handleEditWallet(wallet: walletTypes) {
     setWallet(wallet);
     setOpenEditModal(true);
+  }
+
+  function handleDeleteWallet(wallet: walletTypes) {
+    setWallet(wallet);
+    setOpenDeleteModal(true);
   }
 
   return (
@@ -140,7 +148,7 @@ export default function Home() {
                       </div>
 
                       <div className="relative flex flex-col group">
-                        <button className="p-1 cursor-pointer group hover:bg-[#F5F6F8] transition duration-700 ease-in-out rounded-full p-2">
+                        <button onClick={() => (handleDeleteWallet(wallet))} className="p-1 cursor-pointer group hover:bg-[#F5F6F8] transition duration-700 ease-in-out rounded-full p-2">
                           <FiTrash size={18} className='text-[#767676]' />
                           <Tooltip>Excluir</Tooltip>
                         </button>
@@ -170,6 +178,10 @@ export default function Home() {
 
       {openEditModal && (
         <EditModal openEditModal={setOpenEditModal} wallet={wallet} />
+      )}
+
+      {openDeleteModal && (
+        <DeleteModal openDeleteModal={setOpenDeleteModal} id={wallet ? wallet.id : ''} />
       )}
     </div>
   );
