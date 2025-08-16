@@ -3,16 +3,12 @@ type ButtonProps = {
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
   className?: string;
+  disabled?:boolean;
 }
 
 export function Button({ children, type, onClick, className, ...props }: ButtonProps) {
   return (
-    <button
-      type={type}
-      onClick={onClick}
-      className={className}
-      {...props}
-    >
+    <button type={type} onClick={onClick} className={className} {...props}>
       {children}
     </button>
   )
