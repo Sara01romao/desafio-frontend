@@ -46,7 +46,7 @@ export default function Home() {
       }
       const data: dataType = await response.json();
       setDataWallet(data);
-      setTotalPage(data.pages)
+      setTotalPage(data.pages);
     }
     dataWallet()
   }, [page]);
@@ -170,7 +170,6 @@ export default function Home() {
 
       {openEditModal && (
         <EditModal openEditModal={setOpenEditModal} wallet={wallet} />
-
       )}
     </div>
   );
