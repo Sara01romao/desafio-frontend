@@ -72,7 +72,8 @@ export function EditModal({ openEditModal, wallet }: editModalProps) {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setBtnSubmit(true)
+    setBtnSubmit(true);
+    
     if (wallet) {
       wallet.nome = formData.nome;
       wallet.sobrenome = formData.sobrenome;
@@ -85,18 +86,16 @@ export function EditModal({ openEditModal, wallet }: editModalProps) {
         setTimeout(()=>{
            openEditModal(false);
            setBtnSubmit(false);
-        }, 1000)
-        
+        }, 1000);
       }
 
       if(!response){
         setTimeout(()=>{
           setBtnSubmit(false);
-        }, 1000)
+        }, 1000);
       }
     }
   };
-
 
   return (
     <div className="bg-gray-950/70 fixed top-0 left-0 h-full max-w-[100%] z-50 w-full flex justify-center items-center p-2">
