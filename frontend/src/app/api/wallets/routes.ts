@@ -9,3 +9,11 @@ export async function updatedWallet(wallet: walletTypes) {
   });
   return response.ok;
 }
+
+export async function deleteWallet(id: string) {
+  const response = await fetch(`http://localhost:3004/users/${id}`, {
+    method: "DELETE",
+  });
+
+  return response.ok;
+}
