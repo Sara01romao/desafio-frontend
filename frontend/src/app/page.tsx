@@ -1,4 +1,5 @@
 'use client'
+
 import { useEffect, useState } from "react";
 import { Button } from "./_components/button";
 import { Modal } from "./_components/modal";
@@ -9,8 +10,9 @@ import { FiTrash } from "react-icons/fi";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import { Tooltip } from "./_components/tooltip";
+import { EditModal } from "./_components/modalEdit";
 
-interface walletTypes {
+export interface walletTypes {
   id: string;
   nome: string;
   sobrenome: string;
@@ -30,9 +32,11 @@ interface dataType {
 
 export default function Home() {
   const [activeModal, setActiveModal] = useState(false);
+  const [openEditModal, setOpenEditModal] = useState(false);
   const [dataWallet, setDataWallet] = useState<dataType>();
   const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPage] = useState<number>(1);
+  const [wallet, setWallet] = useState<walletTypes>();
 
   useEffect(() => {
     async function dataWallet() {
@@ -63,6 +67,11 @@ export default function Home() {
     }
 
     return buttonsPage;
+  }
+
+  function handleEditWallet(wallet: walletTypes) {
+    setWallet(wallet);
+    setOpenEditModal(true);
   }
 
   return (
@@ -120,22 +129,22 @@ export default function Home() {
                     <td className="p-2">{wallet.nome}</td>
                     <td className="p-2">{wallet.sobrenome}</td>
                     <td className="p-2">{wallet.email}</td>
-                    <td className="p-2">{wallet.valor_carteira}</td>
+                    <td className="p-2">{wallet.valor_carteira.toFixed(8)}</td>
                     <td className="flex gap-2 p-2 justify-end">
 
                       <div className="relative flex flex-col group">
-                        <button className="p-1 relative cursor-pointer group hover:bg-[#F5F6F8] transition duration-700 ease-in-out rounded-full p-2">
+                        <button onClick={() => handleEditWallet(wallet)} className="p-1 relative cursor-pointer group hover:bg-[#F5F6F8] transition duration-700 ease-in-out rounded-full p-2">
                           <MdOutlineModeEdit size={18} className='text-[#767676]' />
                         </button>
                         <Tooltip>Editar</Tooltip>
                       </div>
-                     
-                     <div className="relative flex flex-col group">
-                      <button className="p-1 cursor-pointer group hover:bg-[#F5F6F8] transition duration-700 ease-in-out rounded-full p-2">
-                        <FiTrash size={18} className='text-[#767676]' />
-                        <Tooltip>Excluir</Tooltip>
-                      </button>
-                     </div>
+
+                      <div className="relative flex flex-col group">
+                        <button className="p-1 cursor-pointer group hover:bg-[#F5F6F8] transition duration-700 ease-in-out rounded-full p-2">
+                          <FiTrash size={18} className='text-[#767676]' />
+                          <Tooltip>Excluir</Tooltip>
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))
@@ -157,6 +166,11 @@ export default function Home() {
 
       {activeModal && (
         <Modal setActiveModal={setActiveModal} />
+      )}
+
+      {openEditModal && (
+        <EditModal openEditModal={setOpenEditModal} wallet={wallet} />
+
       )}
     </div>
   );
