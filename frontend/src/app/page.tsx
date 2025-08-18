@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Button } from "./_components/button";
-import { Modal } from "./_components/modal";
+import { ModalAdd } from "./_components/modalAdd";
 import { Input } from "./_components/input";
 import { IoMdSearch } from "react-icons/io";
 import { MdOutlineModeEdit } from "react-icons/md";
@@ -39,7 +39,7 @@ export default function Home() {
   const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPage] = useState<number>(1);
   const [wallet, setWallet] = useState<walletTypes>();
-
+  const [isResponse, setIsResponse] = useState(false)
 
   useEffect(() => {
     async function dataWallet() {
@@ -50,9 +50,10 @@ export default function Home() {
       const data: dataType = await response.json();
       setDataWallet(data);
       setTotalPage(data.pages);
+      setIsResponse(false);
     }
     dataWallet()
-  }, [page]);
+  }, [page,isResponse]);
 
   function handleButtonPage() {
     let buttonsPage = [];
@@ -134,7 +135,7 @@ export default function Home() {
               {dataWallet && (
                 dataWallet.data.map(wallet => (
                   <tr key={wallet.id} className="odd:bg-white even:bg-[#F5F6F8] hover:bg-[#FAFDFF]  ">
-                    <td className="p-2">{wallet.nome}</td>
+                    <td className="p-2">{wallet.id}{wallet.nome}</td>
                     <td className="p-2">{wallet.sobrenome}</td>
                     <td className="p-2">{wallet.email}</td>
                     <td className="p-2">{wallet.valor_carteira.toFixed(8)}</td>
@@ -173,15 +174,15 @@ export default function Home() {
       </div>
 
       {activeModal && (
-        <Modal setActiveModal={setActiveModal} />
+        <ModalAdd setActiveModal={setActiveModal} setItem={setIsResponse} />
       )}
 
       {openEditModal && (
-        <EditModal openEditModal={setOpenEditModal} wallet={wallet} />
+        <EditModal openEditModal={setOpenEditModal} wallet={wallet} setEdit={setIsResponse} />
       )}
 
       {openDeleteModal && (
-        <DeleteModal openDeleteModal={setOpenDeleteModal} id={wallet ? wallet.id : ''} />
+        <DeleteModal setDelete={setIsResponse} openDeleteModal={setOpenDeleteModal} id={wallet ? wallet.id : ''} />
       )}
     </div>
   );
