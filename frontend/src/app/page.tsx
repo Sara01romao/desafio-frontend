@@ -135,7 +135,7 @@ export default function Home() {
               {dataWallet && (
                 dataWallet.data.map(wallet => (
                   <tr key={wallet.id} className="odd:bg-white even:bg-[#F5F6F8] hover:bg-[#FAFDFF]  ">
-                    <td className="p-2">{wallet.id}{wallet.nome}</td>
+                    <td className="p-2">{wallet.nome}</td>
                     <td className="p-2">{wallet.sobrenome}</td>
                     <td className="p-2">{wallet.email}</td>
                     <td className="p-2">{wallet.valor_carteira.toFixed(8)}</td>
