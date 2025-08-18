@@ -103,7 +103,7 @@ export function ModalAdd({ setActiveModal, setItem }: ModalProps) {
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <Input type="text" name="nome" onChange={handleChangeInput} label="Nome" placeholder="Nome" />
           <Input type="text" name="sobrenome" onChange={handleChangeInput} label="Sobrenome" placeholder="Sobrenome" />
-          <Input type="email" name="email" onChange={handleChangeInput} label="Email" placeholder="Email" />
+          <Input type="email" autoComplete="off" name="email" onChange={handleChangeInput} label="Email" placeholder="Email" />
 
           <div className="flex gap-6 items-center">
             <Input type="number" name="valor_carteira" onChange={handleChangeInput} label="Quantidade BTC" placeholder="0.00000000" />

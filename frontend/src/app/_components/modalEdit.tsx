@@ -116,7 +116,7 @@ export function EditModal({ openEditModal, setEdit, wallet }: editModalProps) {
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <Input type="text" name="nome" value={formData.nome} onChange={handleChangeInput} label="Nome" placeholder="Nome" />
           <Input type="text" name="sobrenome" value={formData.sobrenome} onChange={handleChangeInput} label="Sobrenome" placeholder="Sobrenome" />
-          <Input type="email" name="email" value={formData.email} onChange={handleChangeInput} label="Email" placeholder="Email" />
+          <Input type="email" autoComplete="off" name="email" value={formData.email} onChange={handleChangeInput} label="Email" placeholder="Email" />
 
           <div className="flex gap-6 items-center">
             <Input type="number" name="valor_btc" value={formData.valor_btc} onChange={handleChangeInput} label="Quantidade BTC" placeholder="0.00000000" />

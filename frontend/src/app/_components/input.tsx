@@ -7,6 +7,7 @@ type InputProps = {
   placeholder:string;
   value?:string | number;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  autoComplete?:string
 }
 
 export function Input({type, name, label, value, onChange, ...props}:InputProps){
