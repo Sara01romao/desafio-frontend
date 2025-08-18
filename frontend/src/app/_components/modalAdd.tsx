@@ -29,7 +29,6 @@ export function ModalAdd({ setActiveModal, setItem }: ModalProps) {
     const { name, value } = e.target;
 
     if (name === 'valor_carteira') {
-      console.log(value)
       handleQtdCripto(parseFloat(value));
     }
 
@@ -41,7 +40,6 @@ export function ModalAdd({ setActiveModal, setItem }: ModalProps) {
 
   function handleQtdCripto(value: number) {
     const calculo = (((value * 100) / cotacaoBtc) / 100);
-    console.log("tipo", typeof (calculo))
     setQtd(calculo);
     return (calculo.toFixed(8));
   }
@@ -59,7 +57,6 @@ export function ModalAdd({ setActiveModal, setItem }: ModalProps) {
 
     for (const [key, value] of Object.entries(formData)) {
       if (value === 0 || value === "") {
-        console.log(`${key}: ${value}`)
         setBtnSubmit(false);
         setIserror(true);
         return
@@ -68,15 +65,11 @@ export function ModalAdd({ setActiveModal, setItem }: ModalProps) {
     setIserror(false);
 
     if (qtd) {
-      console.log(formData)
       formData.valor_carteira = qtd;
-      console.log("teste", formData);
-
       const response = await postWallet(formData);
 
       if (response) {
         setBtnSubmit(false);
-
         setToast(true);
         setItem(true);
         setTimeout(() => {
@@ -84,8 +77,7 @@ export function ModalAdd({ setActiveModal, setItem }: ModalProps) {
           setBtnSubmit(false);
         }, 1000);
       }
-      console.log("response:", response)
-
+     
       if (!response) {
         setTimeout(() => {
           setBtnSubmit(false);
@@ -115,8 +107,6 @@ export function ModalAdd({ setActiveModal, setItem }: ModalProps) {
 
           <div className="flex gap-6 items-center">
             <Input type="number" name="valor_carteira" onChange={handleChangeInput} label="Quantidade BTC" placeholder="0.00000000" />
-
-
             <h2 className="font-bold text-xl text-[#3A3A3A] max-w-[300px] w-full">BTC {qtd ? qtd.toFixed(8) : 0}</h2>
           </div>
           {isError && (<p className="text-red-500">Preencha todos os campos</p>)}

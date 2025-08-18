@@ -20,7 +20,6 @@ export async function postWallet(wallet: NewWalletTypes) {
     "endereco_carteira": "1MqurpDATqHNDUPMVbR7L3BW1hz2DcM29"
   }
   
-  console.log("post", wallet)
   const response = await fetch(`http://localhost:3004/users`, {
     method: "POST",
     body: JSON.stringify(Object.assign(infoUse, wallet))
