@@ -1,16 +1,17 @@
 'use client'
 import { SetStateAction, useState } from "react";
 import { Button } from "./button"
-import { deleteWallet} from "../api/wallets/routes";
+import { deleteWallet } from "../api/wallets/routes";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { LuTrash } from "react-icons/lu";
 
 type deleteModalProps = {
   openDeleteModal: (value: SetStateAction<boolean>) => void;
+  setDelete: (value: SetStateAction<boolean>) => void;
   id: string;
 }
 
-export function DeleteModal({ openDeleteModal, id }: deleteModalProps) {
+export function DeleteModal({ openDeleteModal, setDelete, id }: deleteModalProps) {
   const [toast, setToast] = useState(false);
 
   async function handleDelete(id: string) {
@@ -18,6 +19,7 @@ export function DeleteModal({ openDeleteModal, id }: deleteModalProps) {
       const response = await deleteWallet(id);
       if (response) {
         setToast(true);
+        setDelete(true);
         setTimeout(() => {
           openDeleteModal(false);
         }, 1000);

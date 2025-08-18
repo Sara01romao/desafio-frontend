@@ -10,10 +10,11 @@ import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 
 type editModalProps = {
   openEditModal: (value: SetStateAction<boolean>) => void;
+  setEdit: (value: SetStateAction<boolean>) => void;
   wallet?: walletTypes;
 }
 
-export function EditModal({ openEditModal, wallet }: editModalProps) {
+export function EditModal({ openEditModal, setEdit, wallet }: editModalProps) {
   const [formData, setFormData] = useState({
     nome: '',
     sobrenome: '',
@@ -82,7 +83,8 @@ export function EditModal({ openEditModal, wallet }: editModalProps) {
 
       const response = await updatedWallet(wallet);
       if (response) {
-        setToast(true)
+        setToast(true);
+        setEdit(true);
         setTimeout(()=>{
            openEditModal(false);
            setBtnSubmit(false);
@@ -118,7 +120,7 @@ export function EditModal({ openEditModal, wallet }: editModalProps) {
 
           <div className="flex gap-6 items-center">
             <Input type="number" name="valor_btc" value={formData.valor_btc} onChange={handleChangeInput} label="Quantidade BTC" placeholder="0.00000000" />
-            <h2 className="font-bold text-xl text-[#3A3A3A] max-w-[300px] w-full">BTC {qtd !== undefined ? qtd.toFixed(6) : 0}</h2>
+            <h2 className="font-bold text-xl text-[#3A3A3A] max-w-[300px] w-full">BTC {qtd !== undefined ? qtd.toFixed(6):0}</h2>
           </div>
           <div className="flex justify-end gap-4 mt-4">
             <Button type="button" onClick={() => openEditModal(false)} className={`  text-[#007BFF] font-bold text-base cursor-pointer hover:text-[#0C9BF2]`} >
