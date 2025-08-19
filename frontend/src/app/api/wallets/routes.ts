@@ -52,17 +52,26 @@ export async function searchWallet(searh: SearchType) {
   let listSearch: walletTypes[] = [];
 
   const params = Object.entries(searh)
-  .filter(([key, value]) => value) 
-  .map(([key, value]) => `${key}=${encodeURIComponent(value)}`) 
-  .join('&'); 
+    .filter(([key, value]) => value)
+    .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+    .join('&');
 
   if (params) {
     const response = await fetch(`http://localhost:3004/users?${params}`, {
       method: "GET",
     });
-    
+
     const data = await response.json();
     listSearch = data;
   }
   return listSearch;
+}
+
+export async function getAllWallet() {
+  const response = await fetch(`http://localhost:3004/users`,{
+    method:"GET"
+  });
+  
+  const data = await response.json();
+  return data;
 }

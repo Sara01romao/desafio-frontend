@@ -11,6 +11,7 @@ import { Tooltip } from "./_components/tooltip";
 import { EditModal } from "./_components/modalEdit";
 import { DeleteModal } from "./_components/modalDelete";
 import Filter from "./_components/filter";
+import CSVDownloader from "./_components/downloadCsv";
 
 export interface walletTypes {
   id: string;
@@ -93,18 +94,13 @@ export default function Home() {
           Adicionar Carteira
         </Button>
       </div>
-
+ 
       <Filter setSearch={setIsSearch} setResponse={setIsResponse} />
 
       <div className="bg-white rounded-md mt-10 py-4 py-10">
         <div className="flex items-center px-8">
           <h3 className="text-md font-bold text-lg text-[#3A3A3A]">Carteiras</h3>
-          <Button
-            onClick={() => alert("teste")}
-            type="submit"
-            className="flex mr-0 ml-auto items-center justify-center lg:justify-start gap-2 border-2 border-solid border-[#007BFF] px-4 py-2 font-w text-[#007BFF] rounded-sm font-medium cursor-pointer hover:text-[#0C9BF2] hover:border-[#0C9BF2]">
-            Exportar CSV
-          </Button>
+          <CSVDownloader />
         </div>
 
         <div className="px-8 mt-10">
@@ -119,6 +115,7 @@ export default function Home() {
               </tr>
             </thead>
             <tbody>
+            
               {isSearch && (isSearch.length > 0 ?
                 isSearch.map(wallet => (
                   <tr key={wallet.id} className="odd:bg-white even:bg-[#F5F6F8] hover:bg-[#FAFDFF]  ">
