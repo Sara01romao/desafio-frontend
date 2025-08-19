@@ -23,7 +23,7 @@ export function ModalAdd({ setActiveModal, setItem }: ModalProps) {
   const [btnSubmit, setBtnSubmit] = useState(false);
   const [qtd, setQtd] = useState(0);
   const [toast, setToast] = useState(false);
-  const [isError, setIserror] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   function handleChangeInput(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
@@ -58,11 +58,11 @@ export function ModalAdd({ setActiveModal, setItem }: ModalProps) {
     for (const [key, value] of Object.entries(formData)) {
       if (value === 0 || value === "") {
         setBtnSubmit(false);
-        setIserror(true);
+        setIsError(true);
         return
       }
     }
-    setIserror(false);
+    setIsError(false);
 
     if (qtd) {
       formData.valor_carteira = qtd;
