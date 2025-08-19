@@ -1,5 +1,4 @@
 'use server'
-
 import { walletTypes } from "@/app/page";
 import { randomUUID } from "crypto";
 
@@ -19,7 +18,7 @@ export async function postWallet(wallet: NewWalletTypes) {
     "data_abertura": "2017-02-18T01:10:29Z",
     "endereco_carteira": "1MqurpDATqHNDUPMVbR7L3BW1hz2DcM29"
   }
-  
+
   const response = await fetch(`http://localhost:3004/users`, {
     method: "POST",
     body: JSON.stringify(Object.assign(infoUse, wallet))
@@ -41,4 +40,29 @@ export async function deleteWallet(id: string) {
   });
 
   return response.ok;
+}
+
+interface SearchType {
+  nome: string;
+  sobrenome: string;
+  email: string;
+}
+
+export async function searchWallet(searh: SearchType) {
+  let listSearch: walletTypes[] = [];
+
+  const params = Object.entries(searh)
+  .filter(([key, value]) => value) 
+  .map(([key, value]) => `${key}=${encodeURIComponent(value)}`) 
+  .join('&'); 
+
+  if (params) {
+    const response = await fetch(`http://localhost:3004/users?${params}`, {
+      method: "GET",
+    });
+    
+    const data = await response.json();
+    listSearch = data;
+  }
+  return listSearch;
 }
